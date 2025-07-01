@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Presentación 15 Años - Abril</title>
+
+  <!-- Fuente cursiva elegante tipo mayúscula -->
+  <link href="https://fonts.googleapis.com/css2?family=Leckerli+One&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #d0e8ff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      background: transparent;
+    }
+
+    .titulo {
+        font-family: "Sour Gummy", sans-serif;
+      font-size: 6rem;
+      color: #004AAD;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .carousel {
+      position: relative;
+      width: 100%;
+      height: calc(100vh - 100px); /* Resta la altura del título */
+      top: 100px;
+    }
+
+    .slide {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      z-index: 0;
+    }
+
+.slide img {
+  max-width: 100vw;
+  max-height: calc(100vh - 160px); /* Restamos 100px del header + 60px de espacio inferior */
+  object-fit: contain;
+  display: block;
+  margin: auto;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+
+    .slide.active {
+      opacity: 1;
+      z-index: 1;
+    }
+
+    audio {
+      display: none;
+    }
+
+    #playMusicBtn {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      background-color: #004AAD;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      z-index: 3;
+      display: none;
+    }
+
+    #playMusicBtn:hover {
+      background-color: #003080;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .titulo {
+        font-size: 3.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .titulo {
+        font-size: 2.8rem;
+      }
+
+      #playMusicBtn {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Encabezado con título -->
+  <div class="header">
+    <div class="titulo">ABRIL</div>
+  </div>
+
+  <!-- Carrusel de imágenes -->
+  <div class="carousel">
+    <div class="slide active"><img src="img/1.jpeg" alt="Foto 1"></div>
+    <div class="slide"><img src="img/2.jpeg" alt="Foto 2"></div>
+    <div class="slide"><img src="img/3.jpeg" alt="Foto 3"></div>
+    <div class="slide"><img src="img/4.jpeg" alt="Foto 4"></div>
+    <div class="slide"><img src="img/5.jpeg" alt="Foto 5"></div>
+    <div class="slide"><img src="img/6.jpeg" alt="Foto 6"></div>
+    <div class="slide"><img src="img/7.jpeg" alt="Foto 7"></div>
+    <div class="slide"><img src="img/8.jpeg" alt="Foto 8"></div>
+    <div class="slide"><img src="img/9.jpeg" alt="Foto 9"></div>
+    <div class="slide"><img src="img/10.jpeg" alt="Foto 10"></div>
+    <div class="slide"><img src="img/11.jpeg" alt="Foto 11"></div>
+    <div class="slide"><img src="img/12.jpeg" alt="Foto 12"></div>
+  </div>
+
+
+  <!-- Música de fondo -->
+  <audio id="bgMusic" loop>
+    <source src="cielo.mp3" type="audio/mpeg">
+    Tu navegador no soporta audio.
+  </audio>
+
+  <!-- Botón para activar música -->
+  <button id="playMusicBtn">🔊 Activar música</button>
+
+  <!-- Script -->
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+
+    setInterval(() => {
+      slides[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+    }, 5000);
+
+    const music = document.getElementById('bgMusic');
+    const playBtn = document.getElementById('playMusicBtn');
+
+    music.play().catch(() => {
+      playBtn.style.display = 'block';
+    });
+
+    playBtn.addEventListener('click', () => {
+      music.play();
+      playBtn.style.display = 'none';
+    });
+  </script>
+
+</body>
+</html>
