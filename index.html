@@ -146,6 +146,26 @@
   width: 150px; /* Tamaño específico para la imagen derecha */
 }
 
+#startSlideshowBtn {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  padding: 10px 20px;
+  background-color: blue;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  z-index: 3;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+#startSlideshowBtn:hover {
+  background-color: rgb(6, 6, 131);
+}
+
+
 
   </style>
 </head>
@@ -162,21 +182,46 @@
   </div>
 
   <!-- Carrusel de imágenes -->
-  <div class="carousel">
-    <div class="slide active"><img src="img/1.jpeg" alt="Foto 1"></div>
-    <div class="slide"><img src="img/2.jpeg" alt="Foto 2"></div>
-    <div class="slide"><img src="img/3.jpeg" alt="Foto 3"></div>
-    <div class="slide"><img src="img/4.jpeg" alt="Foto 4"></div>
-    <div class="slide"><img src="img/5.jpeg" alt="Foto 5"></div>
-    <div class="slide"><img src="img/6.jpeg" alt="Foto 6"></div>
-    <div class="slide"><img src="img/7.jpeg" alt="Foto 7"></div>
-    <div class="slide"><img src="img/8.jpeg" alt="Foto 8"></div>
-    <div class="slide"><img src="img/9.jpeg" alt="Foto 9"></div>
-    <div class="slide"><img src="img/10.jpeg" alt="Foto 10"></div>
-    <div class="slide"><img src="img/11.jpeg" alt="Foto 11"></div>
-    <div class="slide"><img src="img/12.jpeg" alt="Foto 12"></div>
-  </div>
+   <div class="carousel">
+ 
+  <div class="slide active"><img src="img/carrosa.webp" alt="carrosa"></div>
+  <div class="slide"><img src="img/1.jpeg" alt="Foto 1"></div>
+  <div class="slide"><img src="img/2.jpeg" alt="Foto 2"></div>
+  <div class="slide"><img src="img/3.jpeg" alt="Foto 3"></div>
+  <div class="slide"><img src="img/4.jpeg" alt="Foto 4"></div>
+  <div class="slide"><img src="img/5.jpeg" alt="Foto 5"></div>
+  <div class="slide"><img src="img/6.jpeg" alt="Foto 6"></div>
+  <div class="slide"><img src="img/7.jpeg" alt="Foto 7"></div>
+  <div class="slide"><img src="img/8.jpeg" alt="Foto 8"></div>
+  <div class="slide"><img src="img/9.jpeg" alt="Foto 9"></div>
+  <div class="slide"><img src="img/10.jpeg" alt="Foto 10"></div>
+  <div class="slide"><img src="img/11.jpeg" alt="Foto 11"></div>
+  <div class="slide"><img src="img/12.jpeg" alt="Foto 12"></div>
+  <div class="slide"><img src="img/13.jpeg" alt="Foto 13"></div>
+  <div class="slide"><img src="img/14.jpeg" alt="Foto 14"></div>
+  <div class="slide"><img src="img/15.jpeg" alt="Foto 15"></div>
+  <div class="slide"><img src="img/16.jpeg" alt="Foto 16"></div>
+  <div class="slide"><img src="img/17.jpeg" alt="Foto 17"></div>
+  <div class="slide"><img src="img/18.jpeg" alt="Foto 18"></div>
+  <div class="slide"><img src="img/19.jpeg" alt="Foto 19"></div>
+  <div class="slide"><img src="img/20.jpeg" alt="Foto 20"></div>
+  <div class="slide"><img src="img/21.jpeg" alt="Foto 21"></div>
+  <div class="slide"><img src="img/22.jpeg" alt="Foto 22"></div>
+  <div class="slide"><img src="img/23.jpeg" alt="Foto 23"></div>
+  <div class="slide"><img src="img/24.jpeg" alt="Foto 24"></div>
+  <div class="slide"><img src="img/25.jpeg" alt="Foto 25"></div>
+  <div class="slide"><img src="img/26.jpeg" alt="Foto 26"></div>
+  <div class="slide"><img src="img/27.jpeg" alt="Foto 27"></div>
+  <div class="slide"><img src="img/28.jpeg" alt="Foto 28"></div>
+  <div class="slide"><img src="img/29.jpeg" alt="Foto 29"></div>
+  <div class="slide"><img src="img/30.jpeg" alt="Foto 30"></div>
+  <div class="slide"><img src="img/31.jpeg" alt="Foto 31"></div>
+  <div class="slide"><img src="img/32.jpeg" alt="Foto 32"></div>
+  <div class="slide"><img src="img/33.jpeg" alt="Foto 33"></div>
+</div>
 
+<!-- ✅ Botón para iniciar presentación -->
+<button id="startSlideshowBtn">▶ Iniciar presentación</button>
 
   <!-- Música de fondo -->
   <audio id="bgMusic" loop>
@@ -189,27 +234,41 @@
 
   <!-- Script -->
   <script>
-    const slides = document.querySelectorAll('.slide');
-    let current = 0;
+  const slides = document.querySelectorAll('.slide');
+  let current = 0;
+  let slideshowInterval = null;
 
-    setInterval(() => {
+  const music = document.getElementById('bgMusic');
+  const playMusicBtn = document.getElementById('playMusicBtn');
+  const startBtn = document.getElementById('startSlideshowBtn');
+
+  // Oculta el botón de música hasta que el navegador lo bloquee
+  music.play().catch(() => {
+    playMusicBtn.style.display = 'block';
+  });
+
+  playMusicBtn.addEventListener('click', () => {
+    music.play();
+    playMusicBtn.style.display = 'none';
+  });
+
+  startBtn.addEventListener('click', () => {
+    startSlideshow();
+    music.play().catch(() => {
+      playMusicBtn.style.display = 'block';
+    });
+    startBtn.style.display = 'none'; // Oculta el botón una vez iniciado
+  });
+
+  function startSlideshow() {
+    slideshowInterval = setInterval(() => {
       slides[current].classList.remove('active');
       current = (current + 1) % slides.length;
       slides[current].classList.add('active');
     }, 5000);
+  }
+</script>
 
-    const music = document.getElementById('bgMusic');
-    const playBtn = document.getElementById('playMusicBtn');
-
-    music.play().catch(() => {
-      playBtn.style.display = 'block';
-    });
-
-    playBtn.addEventListener('click', () => {
-      music.play();
-      playBtn.style.display = 'none';
-    });
-  </script>
 
 </body>
 </html>
